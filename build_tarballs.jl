@@ -23,28 +23,9 @@ make install
 make clean
 cp lib/libfastcluster.so $prefix/libfastcluster.so
 exit
-
-if [ $target = "x86_64-apple-darwin14" ]; then
-cd $WORKSPACE/srcdir
-cd Fastcluster/
-./configure --prefix=$prefix --host=$target
-make
-nano
-nano Makefile.in 
-./configure --prefix=$prefix --host=$target
-make
-nano Makefile.in 
-./configure --prefix=$prefix --host=$target
-make
-nano Makefile.in 
-./configure --prefix=$prefix --host=$target
-make
-make install
-exit
-
 fi
 
-else
+if [ $target = "x86_64-apple-darwin14" ]; then
 cd $WORKSPACE/srcdir
 cd Fastcluster/
 sed -i '1d' Makefile.in 
@@ -55,9 +36,7 @@ make install
 make clean
 cp lib/libfastcluster.so $prefix/libfastcluster.so
 exit
-
 fi
-
 """
 
 # These are the platforms we will build for by default, unless further
