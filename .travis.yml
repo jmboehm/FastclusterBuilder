@@ -1,8 +1,8 @@
 language: julia
 os:
-  - linux
+- linux
 julia:
-  - 1.0
+- 1.0
 notifications:
   email: false
 git:
@@ -10,30 +10,25 @@ git:
 cache:
   timeout: 1000
   directories:
-    - downloads
+  - downloads
 env:
   global:
-    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
-    - BINARYBUILDER_AUTOMATIC_APPLE=true
+  - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+  - BINARYBUILDER_AUTOMATIC_APPLE=true
+  matrix:
+    secure: g1G+wqQWq6MXUnH/9dBsuI2luXNdOxSVLxPDYF1h6w6pNftBr3WhhtzAkMPUT0OIY2xNsBVu9CQfAF9Fo4tsEuOHCwN+UjIn4yRVedJiV0tHREy2kUq5SjzW2XYrlNqdbl9moXTYFjCm8SU8qeCwRYDdn5lF6xvMLcN9eKUOhUwHAa0Gset2MEK3OeBrTuIaf5e2/Oj/3RSfK8CA/46MEEFsEBwm0aaXvE9LoCe0JLW9kN9ZIr5G9cmU9WwBsvejbc1DNMQmH4mwOVauLvubWLa+Ti08uILDQS6LErjsn+9nNkp4Uf1U6fWe+HRcEgF3D7xhtf/b2kIPZok0hwlD09Ei57efMIkpokyLXK1Lvwy/MHbC4R6zBpbJFAZkMgUne40SvUrNQrpFXjLPLjL7AX/Nv+NUmPn6y9X1bAg4WX4kyxbjkmtsnKsbbsD2JfHkzWGXD2H79abN3Rb4CGK18Mu56hE4zG+VauwSHFKraxl3UEyKDISxvyrhA+BSt0X1PXolpQS/4ZGOfFrUJ4GvOz2apFkEHJjpA2t45DtR+MeDF2slSiz14arZWE3NzrkQs+PcytaJYWGyk98VowOe4ocrCfRfYJNMIePQofokGd4mxG44hPhARSIBU0NakuGZjIn9YwtBWMd0aJckWdn33LP70VLFBc5eqxcrz5Hb+Fg=
 sudo: required
-
-# Before anything else, get the latest versions of things
 before_script:
-  - julia -e 'using Pkg; pkg"add BinaryProvider"; pkg"add BinaryBuilder#master"; Pkg.build()'
-
+- julia -e 'using Pkg; pkg"add BinaryProvider"; pkg"add BinaryBuilder#master"; Pkg.build()'
 script:
-  - julia build_tarballs.jl
-
-
+- julia build_tarballs.jl
 deploy:
-    provider: releases
-    api_key:
-        # Note; this api_key is only valid for jmboehm/FastclusterBuilder; you need
-        # to make your own: https://docs.travis-ci.com/user/deployment/releases/
-        secure: VRGTE5IU5UXRPjpSeS1IDhiUQsWS+MiBe4LwdQIIfkHjihbLFjWhswL4VCIgAQlHIrmRhHMxSwwj1Ke5hvBKDBAYdhkZUiqkT3Fa13LGZn27TckQN9dYioWvA53cfJTrS7oxACrF0rtFGHqCbo3GbEU+50MS0ZAKl0mTPifB4HwHSk/gRk+Xlr3R728jL0ri5LulqS3jZqwznNjzEkqYSL6YjJmx0lsiHNY71SBKA2MKXlGIZP1nzd4gXXEjx0RobFx0Nb43BPxdhHhyJCZBXfGxU6zYXXZyXHbprgtQz4c8xfRTd3Ex+a9ASGWKVyrUhCQrVOTpC3EhDabLUV4w3dAj0jkN2KehUpJHSU5caaek80QmrqMJDWzgroMHliP/AMAcFKfYnogdxQAOcwSlUWksIzyXD1+Omlx9wGJyj5vnDYncp1Fn639IepTKs9ZSqMamKgbO8M2d6dF17Qs3L8JPhoMdknQQqdlz+gRAjlKhcTNhp97TP9Bu/fT6FAhCIJsxEqoJtIH510EEq0fNbiOSNEcUJ8A8/qDtMgoQ4QVZOgZuo2rfxlOAoapW9OZ9nN0O2+NGAc7Wi2veqQmhk4TRoqV7ocNAi2HFxevr+pPaKqNjDT9IQulfXhvwC3UC85+yl5cneXsoRdNI7lsUlrgERW3VK6+A3zr3NlaDL+I=
-    file_glob: true
-    file: products/*
-    skip_cleanup: true
-    on:
-        repo: jmboehm/FastclusterBuilder
-        tags: true
+  provider: releases
+  api_key:
+    secure: VRGTE5IU5UXRPjpSeS1IDhiUQsWS+MiBe4LwdQIIfkHjihbLFjWhswL4VCIgAQlHIrmRhHMxSwwj1Ke5hvBKDBAYdhkZUiqkT3Fa13LGZn27TckQN9dYioWvA53cfJTrS7oxACrF0rtFGHqCbo3GbEU+50MS0ZAKl0mTPifB4HwHSk/gRk+Xlr3R728jL0ri5LulqS3jZqwznNjzEkqYSL6YjJmx0lsiHNY71SBKA2MKXlGIZP1nzd4gXXEjx0RobFx0Nb43BPxdhHhyJCZBXfGxU6zYXXZyXHbprgtQz4c8xfRTd3Ex+a9ASGWKVyrUhCQrVOTpC3EhDabLUV4w3dAj0jkN2KehUpJHSU5caaek80QmrqMJDWzgroMHliP/AMAcFKfYnogdxQAOcwSlUWksIzyXD1+Omlx9wGJyj5vnDYncp1Fn639IepTKs9ZSqMamKgbO8M2d6dF17Qs3L8JPhoMdknQQqdlz+gRAjlKhcTNhp97TP9Bu/fT6FAhCIJsxEqoJtIH510EEq0fNbiOSNEcUJ8A8/qDtMgoQ4QVZOgZuo2rfxlOAoapW9OZ9nN0O2+NGAc7Wi2veqQmhk4TRoqV7ocNAi2HFxevr+pPaKqNjDT9IQulfXhvwC3UC85+yl5cneXsoRdNI7lsUlrgERW3VK6+A3zr3NlaDL+I=
+  file_glob: true
+  file: products/*
+  skip_cleanup: true
+  on:
+    repo: jmboehm/FastclusterBuilder
+    tags: true
