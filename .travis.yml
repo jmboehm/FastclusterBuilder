@@ -22,8 +22,7 @@ script:
 - julia build_tarballs.jl
 deploy:
   provider: releases
-  api_key:
-    secure: "Yn2V86QzQjyCEFzM6nPM6PCa6OHSLI49hlvl07g+jGTGSNCR38ReWYj9pzfiSsPkyHY8X3isb694zfqwgzjKGx8L7mXhN+9dkXuOohTM0Hd/WZ7kCVcsfPI7416qh0iQvNwe4WfBp8KoVSNl/o91sJgaxb7yTSvz9NhQZ/EMK/jsPbGZ7R1RYX0CGEm3vQzl8/7vFTRsGaHGQVzOtXNeGiqOEQmcudk5pYgzgdMlYptArbN/VlXYD58mZ/66ooGoItheqk9EbQIW9vIDicuboVzTcNUqeyrQZIPbVdk6SyfjISW5pPcj1lJ/xiULS1Nh/aL8QCiNYwKa6ZVeZqLAetwAlOjxSD+EN04fhTHc1tmMXjFKIK3VQ/nUUeObiJsOO3x+/v0AKZqV9XlPRYISMN1qIZE4GP9KSrcF0wDKhdWC3Qp4DbTcFm5SzNYEeq7GbWX2yjxGdcSgG7Ix3eNP9wvLOsWvi7ulE+Kcs1AFy1qiYKIFPd8oroSeaIo7m9a+mZpPEMsbNTBm+MTsiPFZaDLrpEdd1SBS9eZejfmr1gfa4twRqf5Nx9e1cvUuXf7gynv5nKobE+d/2wYnPQ5YGSlot0njObRyon4kK4r5DGCaQO61xKHGSE3FXIoOCIqTcO+lrCJ+TZwnGM+4eXyPNx6rpAITG0/F6cqgAJp1DN4="
+  api_key: $GITHUB_TOKEN
   file_glob: true
   file: products/*
   skip_cleanup: true
